@@ -38,6 +38,7 @@ public class ChatClientHandler extends Thread {
                 Command commandObject;
                 commandObject =  ChatServer.commandMap.get(command[0].toLowerCase()); //入力されたコマンド名と同じkeyをもつコマンドオブジェクトを取り出す。また、大文字を小文字に変換する。
                 if(ChatServer.commandMap.containsKey(command[0].toLowerCase()) == false) { //コマンドマップにないなら
+                    System.out.println("aaa");
                     String commandResult = "CommadNotFound";
                     send(commandResult, command[0]);
                 } else {
