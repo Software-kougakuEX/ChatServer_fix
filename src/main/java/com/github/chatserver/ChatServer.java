@@ -35,6 +35,7 @@ public class ChatServer {
       commandMap.put("whoami", new WhoamiCommand());
       commandMap.put("name", new NameCommand());
       commandMap.put("post", new PostCommand());
-      commandMap.put("help", new HelpCommand()); 
+      commandMap.put("help", new HelpCommand());
+      commandMap.put("bye", new ByeCommand());
     }    
 }
