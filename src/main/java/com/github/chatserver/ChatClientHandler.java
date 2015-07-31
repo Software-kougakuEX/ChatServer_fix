@@ -114,6 +114,13 @@ public class ChatClientHandler extends Thread {
     }
 
     /*
+     * ユーザに名前をつける
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /*
      * ユーザの名前を返す
      */
     public String getUserName() {
