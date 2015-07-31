@@ -33,6 +33,7 @@ public class ChatServer {
 
     void setCommandMap() {
       commandMap.put("whoami", new WhoamiCommand());
-      commandMap.put("name", new NameCommand()); 
+      commandMap.put("name", new NameCommand());
+      commandMap.put("post", new PostCommand()); 
     }    
 }
