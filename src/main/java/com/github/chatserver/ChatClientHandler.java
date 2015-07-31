@@ -10,6 +10,8 @@ public class ChatClientHandler extends Thread {
     private Socket socket; //ソケット
     public BufferedReader in;
     public BufferedWriter out;
+
+    private boolean byeFlag = false; //byeコマンドのフラグ　trueならrun()を終了する
     
     private InetAddress address;
     private static int userNum = 1; //何番目のユーザかどうか
@@ -44,6 +46,9 @@ public class ChatClientHandler extends Thread {
                 } else {
                     commandObject.start(command, this); //取り出したコマンドオブジェクトを実行する
                 }
+                if(byeFlag == true) {
+                    break; //"BYE"コマンドが実行されたらrun()から抜ける
+                }
             }
         } catch(IOException e) {
             e.printStackTrace();
@@ -70,6 +75,7 @@ public class ChatClientHandler extends Thread {
      * 閉じる　クライアントの処理の終了
      */
     public void close() throws IOException {
+        byeFlag = true; //フラグを建てる
         in.close();
         out.close();
         socket.close();
