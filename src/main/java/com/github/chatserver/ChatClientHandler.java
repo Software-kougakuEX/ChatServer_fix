@@ -125,5 +125,15 @@ public class ChatClientHandler extends Thread {
      */
     public String getUserName() {
         return userName;
-    }  
+    }
+
+    /*
+     * メッセージを受け取って表示する 引数はメッセージ, 送信者の名前 "POST"コマンドの場合
+     */
+    public void getPostMessage(String message, String name) throws IOException {
+        out.write(name + ": " + message + "\r\n");
+        out.flush();
+        out.write("> "); //次のコマンド入力
+        out.flush();
+    }
 }
