@@ -32,7 +32,17 @@ public class ChatClientHandler extends Thread {
                 out.write("> ");
                 out.flush();
                 String message = receive();
-                if(message.equals("")) break;     
+                if(message.equals("")) break;
+                String[] command; //入力されたコマンドを格納する
+                command = message.split(" "); //コマンドは１番目　" "で区切って配列に代入する
+                Command commandObject;
+                commandObject =  ChatServer.commandMap.get(command[0].toLowerCase()); //入力されたコマンド名と同じkeyをもつコマンドオブジェクトを取り出す。また、大文字を小文字に変換する。
+                if(ChatServer.commandMap.containsKey(command[0].toLowerCase()) == false) { //コマンドマップにないなら
+                    String commandResult = "CommadNotFound";
+                    send(commandResult, command[0]);
+                } else {
+                    commandObject.start(command, this); //取り出したコマンドオブジェクトを実行する
+                }
             }
         } catch(IOException e) {
             e.printStackTrace();
@@ -55,7 +65,7 @@ public class ChatClientHandler extends Thread {
         out = new BufferedWriter(new OutputStreamWriter(socketOut));
     }
 
-     /*
+    /*
      * 閉じる　クライアントの処理の終了
      */
     public void close() throws IOException {
@@ -64,12 +74,21 @@ public class ChatClientHandler extends Thread {
         socket.close();
     }
 
-     /*
+    /*
      * コマンドを受け取る
      */
     private String receive() throws IOException {
         String message = in.readLine(); //入力をまつ
         return message;
+    }
+
+    /*
+     * コマンドを入力した結果をターミナルに出力する
+     */
+    private void send(String commandResult, String serverResult) throws IOException {
+        out.write(commandResult + "\r\n");
+        out.flush();
+        System.out.println("client" + getUserId() + "(" + getUserName() + "): " + serverResult.trim() + ": " + commandResult); //サーバーに結果を表示する。誰が実行したかと結果
     }
     
     /*

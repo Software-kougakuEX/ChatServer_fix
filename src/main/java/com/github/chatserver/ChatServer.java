@@ -5,7 +5,8 @@ import java.util.*;
 
 public class ChatServer {
     private ServerSocket server;
-    public static TreeMap<String, ChatClientHandler> userAssembly = new TreeMap<String, ChatClientHandler>(); 
+    public static TreeMap<String, ChatClientHandler> userAssembly = new TreeMap<String, ChatClientHandler>();
+    public static HashMap<String, Command> commandMap = new HashMap<String, Command>(); 
 
     public void listen() {
         try {
@@ -28,6 +29,10 @@ public class ChatServer {
     public static void main (String[] args) {
         ChatServer echo = new ChatServer();
         echo.listen();
+    }
+
+    void setCommandMap() {
+      
     }
     
 }
