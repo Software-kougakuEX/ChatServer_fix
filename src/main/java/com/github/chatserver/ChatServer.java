@@ -12,7 +12,7 @@ public class ChatServer {
         try {
             server = new ServerSocket(18080);
             System.out.println("server start on port 18080");
-
+            setCommandMap(); 
             while(true) {
                 Socket socket = server.accept();
                 int n = ChatClientHandler.getUserNum(); 
@@ -32,7 +32,7 @@ public class ChatServer {
     }
 
     void setCommandMap() {
-      
+      commandMap.put("whoami", new WhoamiCommand()); 
     }
     
 }
